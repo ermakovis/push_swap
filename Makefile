@@ -6,7 +6,7 @@
 #    By: tcase <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/06 11:31:10 by tcase             #+#    #+#              #
-#    Updated: 2019/05/13 14:04:58 by tcase            ###   ########.fr        #
+#    Updated: 2019/05/25 10:42:01 by tcase            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ LIB_DIR=./libft
 INC_DIR=./includes
 OBJ_DIR =./obj
 
-SRC_NAME=main.c
+SRC_NAME=main.c move_stk.c checks.c
 LIB_NAME=ft_atoi.c ft_bzero.c ft_isalnum.c ft_isalpha.c \
 		 ft_isascii.c ft_isdigit.c ft_isprint.c ft_itoa.c \
 		 ft_lstnew.c ft_memalloc.c ft_memccpy.c \
@@ -37,7 +37,7 @@ LIB_NAME=ft_atoi.c ft_bzero.c ft_isalnum.c ft_isalpha.c \
 		 ft_toupper.c ft_lstdelone.c ft_lstdel.c \
 		 ft_lstadd.c ft_lstiter.c ft_lstmap.c ft_lstsize.c \
 		 ft_strclen.c ft_nbrlen.c ft_strtoupper.c ft_swap.c \
-		 ft_power.c 
+		 ft_power.c get_next_line.c 
 
 INC_NAME=push_swap.h
 OBJ_NAME=$(SRC_NAME:.c=.o)
@@ -51,12 +51,9 @@ LBO = $(addprefix $(OBJ_DIR)/, $(LBO_NAME))
 
 all: $(NAME)
 
-$(NAME) : $(OBJ) $(LBO)
-	ar rc $(NAME) $(OBJ) $(LBO)
+$(NAME) : $(LBO)
+	ar rc $(NAME) $(LBO)
 	ranlib $(NAME)
-
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	$(CC) -o $@ -c $<
 
 $(OBJ_DIR)/%.o: $(LIB_DIR)/%.c
 	$(CC) -o $@ -c $<
@@ -67,8 +64,8 @@ clean:
 fclean: clean
 		rm -f $(NAME)
 
-test: all
-	gcc -o test $(NAME) && ./test
+check: all
+	gcc -o checker $(SRC) $(NAME) 
 
 vtest: all
 	gcc -o test -ggdb3 -std=c11 $(NAME) $(FLAGS)  && valgrind --leak-check=full ./test
