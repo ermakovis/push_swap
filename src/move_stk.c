@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 20:12:10 by tcase             #+#    #+#             */
-/*   Updated: 2019/05/25 10:39:18 by tcase            ###   ########.fr       */
+/*   Updated: 2019/05/25 21:55:24 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ void    clean_stk(t_stk *stk_a, t_stk *stk_b, int res, char *message)
 {
     t_stk   *tmp;
 
+	tmp = NULL;
     while (stk_a)
     {
        tmp = stk_a;

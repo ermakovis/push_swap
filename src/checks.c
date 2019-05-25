@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 20:53:55 by tcase             #+#    #+#             */
-/*   Updated: 2019/05/25 10:33:12 by tcase            ###   ########.fr       */
+/*   Updated: 2019/05/25 21:16:15 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,14 @@
 
 int		check_sort(t_stk *stk)
 {
-	while (stk->next)
+	t_stk	*tmp;
+
+	tmp = stk;
+	while (tmp->next)
 	{
-		if (stk->num > stk->next->num)
+		if (tmp->num > tmp->next->num)
 			return (0);
-		stk = stk->next;
+		tmp = tmp->next;
 	}
 	return (1);
 }
@@ -30,7 +33,7 @@ int     check_num(char *str)
     i = 0;
     while (str[i])
     {
-        if (!(ft_isdigit(str[i])))
+        if (!(ft_isdigit(str[i])) && str[i] != '-')
             return (0);
         i++;
     }
