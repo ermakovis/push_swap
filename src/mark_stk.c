@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 14:44:54 by tcase             #+#    #+#             */
-/*   Updated: 2019/05/25 21:27:14 by tcase            ###   ########.fr       */
+/*   Updated: 2019/05/26 11:43:40 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ static void clear_sorted_flags(t_stk *stk)
 	tmp = stk;
 	while (tmp)
 	{
-		stk->sorted = 0;
+		tmp->sorted = 0;
 		tmp = tmp->next;
 	}
 }
