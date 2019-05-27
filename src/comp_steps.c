@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 14:11:26 by tcase             #+#    #+#             */
-/*   Updated: 2019/05/26 16:22:39 by tcase            ###   ########.fr       */
+/*   Updated: 2019/05/27 13:51:43 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,10 @@ static int		comp_fwd(int steps_a, int steps_b, t_st *st, t_moves **fwd)
 		steps_a--;
 		steps_b--;
 	}
-	while (steps_a > 0)
-	{
+	while (steps_a > 0 && steps_a--)
 		moves->ra++;
-		steps_a--;
-	}
-	while (steps_b > 0)
-	{
+	while (steps_b > 0 && steps_b--)
 		moves->rb++;
-		steps_b--;
-	}
 	moves->total = (moves->rr + moves->ra + moves->rb);
 	*fwd = moves;
 	return (1);
@@ -53,19 +47,19 @@ static int		comp_bwd(int steps_a, int steps_b, t_st *st, t_moves **bwd)
 	steps_b = ft_abs(steps_b - st->size_b);
 	while (steps_a > 0 && steps_b > 0)
 	{
-		moves->rrr++;
 		steps_a--;
 		steps_b--;
+		moves->rrr++;
 	}
 	while (steps_a > 0)
 	{
-		moves->rra++;
 		steps_a--;
+		moves->rra++;
 	}
-	while (steps_b > 0)
-	{
-		moves->rrb++;
+	while (steps_b > 0) 
+	{ 
 		steps_b--;
+		moves->rrb++;
 	}
 	moves->total = (moves->rrr + moves->rra + moves->rrb);
 	*bwd = moves;
@@ -84,45 +78,17 @@ static int		comp_bth(int steps_a, int steps_b, t_st *st, t_moves **bth)
 		(steps_a = steps_a - st->size_a);
 	steps_b <= ft_abs(steps_b - st->size_b) ? steps_b :\
 		(steps_b = steps_b - st->size_b);
-	while (steps_a < 0)
-	{
-		steps_a++;
+	while (steps_a < 0 && steps_a++)
 		moves->rra++;
-	}
-	while (steps_a > 0)
-	{
-		steps_a--;
+	while (steps_a > 0 && steps_a--)
 		moves->ra++;
-	}
-	while (steps_b < 0)
-	{
-		steps_b++;
+	while (steps_b < 0 && steps_b++)
 		moves->rrb++;
-	}
-	while (steps_b > 0)
-	{
-		steps_b--;
+	while (steps_b > 0 && steps_b--)
 		moves->rb++;
-	}
 	moves->total = (moves->rb + moves->ra + moves->rra + moves->rrb);
 	*bth = moves;
 	return (1);
-}
-
-int		smallest_of_three(int num1, int num2, int num3)
-{
-	if (num1 < num2)
-	{
-		if (num1 < num3)
-			return (num1);
-		else
-			return (num3);
-	}
-	else if (num2 < num3)
-		return (num2);
-	else
-		return (num3);
-	return (0);
 }
 
 static void		assign_shortest(t_moves *fwd, t_moves *bwd, t_moves *bth,\
@@ -131,26 +97,38 @@ static void		assign_shortest(t_moves *fwd, t_moves *bwd, t_moves *bth,\
 	int		num;
 	t_moves *tmp;
 
-	num = smallest_of_three(fwd->total, bwd->total, bth->total);
-	if (num == fwd->total)
+	num = get_smallest(fwd->total, bwd->total, bth->total);
+	if (num == fwd->total && (tmp = fwd))
 	{
 		ft_memdel((void**)&bwd);
 		ft_memdel((void**)&bth);
-		tmp = fwd;
 	}
-	else if (num == bwd->total)
+	else if (num == bwd->total && (tmp = bwd))
 	{
 		ft_memdel((void**)&fwd);
 		ft_memdel((void**)&bth);
-		tmp = bwd;
 	}
-	else if (num == bth->total)
+	else if (num == bth->total && (tmp = bth))
 	{
 		ft_memdel((void**)&fwd);
 		ft_memdel((void**)&bwd);
-		tmp = bth;
 	}
-	*moves == NULL ? (*moves = tmp) : ((*moves)->next = tmp);
+	*moves = tmp;
+}
+/*
+**	printf("fwd | ra-%d  | rb-%d  | rr-%d \n", fwd->ra, fwd->rb, fwd->rr);
+**	printf("bwd | rra-%d | rrb-%d | rrr-%d\n", bwd->rra, bwd->rrb, bwd->rrr);
+**	printf("bth | ra-%d  | rb-%d  | rra-%d | rrb-%d\n", bth->ra, bth->rb, bth->rra, bth->rrb);
+**	printf("\n");
+*/
+void			get_last_move(t_moves **moves, t_moves **new)
+{
+	t_moves		*tmp;
+
+	tmp = *moves;
+	while (tmp->next)
+		tmp = tmp->next;
+	tmp->next = *new;
 }
 
 int				comp_steps(int steps_a, int steps_b, t_st *st, t_moves **moves)
@@ -158,6 +136,7 @@ int				comp_steps(int steps_a, int steps_b, t_st *st, t_moves **moves)
 	t_moves	*fwd;
 	t_moves	*bwd;
 	t_moves	*bth;
+	t_moves *tmp;
 
 	fwd = NULL;
 	bwd = NULL;
@@ -175,9 +154,17 @@ int				comp_steps(int steps_a, int steps_b, t_st *st, t_moves **moves)
 		ft_memdel((void**)&bwd);
 		return (-1);
 	}
-	assign_shortest(fwd, bwd, bth, moves);
-	//printf("forwrd  -- ttl-%d | rr-%d | ra-%d | rb-%d\n", fwd->total, fwd->rr, fwd->ra, fwd->rb);
-	//printf("backwrd -- ttl-%d | rrr-%d | rra-%d | rrb-%d\n", bwd->total, bwd->rrr, bwd->rra, bwd->rrb);
-	//printf("both    -- ttl-%d | ra-%d | rra-%d | rb-%d | rrb-%d\n", bth->total, bth->ra, bth->rra, bth->rb, bth->rrb);
+//	printf("fwd | ra-%d  | rb-%d  | rr-%d \n", fwd->ra, fwd->rb, fwd->rr);
+//	printf("bwd | rra-%d | rrb-%d | rrr-%d\n", bwd->rra, bwd->rrb, bwd->rrr);
+//	printf("bth | ra-%d  | rb-%d  | rra-%d | rrb-%d\n", bth->ra, bth->rb, bth->rra, bth->rrb);
+	assign_shortest(fwd, bwd, bth, &tmp);
+	if (*moves == NULL)
+		*moves = tmp;
+	else
+		get_last_move(moves, &tmp);
+//	printf("choosen - ttl-%d |ra-%d|rb-%d|rr-%d|rra-%d|rrb-%d|rrr-%d\n",\
+			tmp->total, tmp->ra, tmp->rb, tmp->rr,\
+			tmp->rra, tmp->rrb, tmp->rrr);
+//	printf("\n");
 	return (1);
 }

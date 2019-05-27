@@ -6,13 +6,13 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 14:44:54 by tcase             #+#    #+#             */
-/*   Updated: 2019/05/26 11:43:40 by tcase            ###   ########.fr       */
+/*   Updated: 2019/05/27 13:42:02 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-void	index_stk(t_stk *stk, int size)
+void		index_stk(t_stk *stk, int size)
 {
 	int		index;
 	int		min;
@@ -38,7 +38,7 @@ void	index_stk(t_stk *stk, int size)
 	}
 }
 
-int		get_sorted_count(t_stk *stk, t_stk *tstk, int size)
+int			get_sorted_count(t_stk *stk, t_stk *tstk, int size)
 {
 	t_stk	*tmp;
 	int		i;
@@ -47,6 +47,18 @@ int		get_sorted_count(t_stk *stk, t_stk *tstk, int size)
 	i = 0;
 	tmp = tstk;
 	cur = tmp->index;
+//	while (size--)
+//	{
+//		if (cur == tmp->index)
+//		{
+//			cur++;
+//			i++;
+//		}
+//		if (tmp->next)
+//			tmp = tmp->next;
+//		else
+//			tmp = stk;
+//	}
 	while (size--)
 	{
 		if (cur < tmp->index)
@@ -62,7 +74,7 @@ int		get_sorted_count(t_stk *stk, t_stk *tstk, int size)
 	return (i);
 }
 
-t_stk	*find_best_stk(t_stk *stk, int size)
+t_stk		*find_best_stk(t_stk *stk, int size)
 {
 	t_stk	*tmp;
 	t_stk	*prev;
@@ -79,7 +91,7 @@ t_stk	*find_best_stk(t_stk *stk, int size)
 		if (i > max)
 		{
 			max = i;
-			best = tmp;;
+			best = tmp;
 		}
 		prev = tmp;
 		tmp = tmp->next;
@@ -87,7 +99,7 @@ t_stk	*find_best_stk(t_stk *stk, int size)
 	return (best == NULL ? prev : best);
 }
 
-static void clear_sorted_flags(t_stk *stk)
+static void	clear_sorted_flags(t_stk *stk)
 {
 	t_stk	*tmp;
 
@@ -98,30 +110,45 @@ static void clear_sorted_flags(t_stk *stk)
 		tmp = tmp->next;
 	}
 }
-void	mark_stk(t_stk *stk, int size)
+
+void		mark_stk(t_stk *stk, int size)
 {
 	t_stk	*cur;
 	t_stk	*next;
 	t_stk	*best;
 	int		index;
-	
-	clear_sorted_flags(stk);
-	best = find_best_stk(stk, size);
-	cur = best;
+
+clear_sorted_flags(stk);
+best = find_best_stk(stk, size);
+cur = best;
+//	index = best->index;
+//	while (size--)
+//	{
+//		if (cur->next != NULL)
+//			next = cur->next;
+//		else
+//			next = stk;
+//		if (cur->index == index + 1)
+//		{
+//			cur->sorted = 1;
+//			index++;
+//		}
+//		cur = next;
+//	}
 	index = -1;
 	while (size--)
 	{
-		cur->next != NULL ? (next = cur->next) : (next = stk);
+		if (cur->next != NULL)
+			next = cur->next;
+		else
+			next = stk;
 		if (cur->index < next->index && index == -1)
 		{
 			index = cur->index;
 			cur->sorted = 1;
 		}
-		if (index < next->index  && index != -1)
-		{
-			index = next->index;
+		if (index < next->index && index != -1 && (index = next->index))
 			next->sorted = 1;
-		}
 		cur = next;
 	}
 }
