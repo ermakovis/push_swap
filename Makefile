@@ -6,7 +6,7 @@
 #    By: tcase <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/06 11:31:10 by tcase             #+#    #+#              #
-#    Updated: 2019/05/26 21:32:34 by tcase            ###   ########.fr        #
+#    Updated: 2019/05/27 14:57:48 by tcase            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ OBJ_DIR =./obj
 
 SRC_NAME=move_stk.c checks.c stk_functions.c mark_stk.c \
 		 push_rot.c push_rrot.c push_push.c push_sx.c \
-		 move_unsorted.c comp_steps.c cleanup.c
+		 move_unsorted.c move_back.c comp_steps.c cleanup.c
 LIB_NAME=ft_abs.c ft_atoi.c ft_bzero.c ft_isalnum.c ft_isalpha.c \
 		 ft_isascii.c ft_isdigit.c ft_isprint.c ft_itoa.c \
 		 ft_lstnew.c ft_memalloc.c ft_memccpy.c \

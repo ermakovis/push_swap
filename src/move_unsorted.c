@@ -6,13 +6,13 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 21:44:47 by tcase             #+#    #+#             */
-/*   Updated: 2019/05/27 11:38:26 by tcase            ###   ########.fr       */
+/*   Updated: 2019/05/27 15:30:19 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-static int		check_sort_flags(t_stk **stk)
+int		check_sort_flags(t_stk **stk)
 {
 	t_stk	*tmp;
 
@@ -73,16 +73,6 @@ int				get_index_last_sorted(t_stk **stk_a)
 
 static int		check_push(t_stk **stk_a, t_stk **stk_b, int size)
 {
-//	int		before;
-//	int		after;
-//	
-//	before = get_sorted_count(*stk_a, find_best_stk(*stk_a, size), size);
-//	push_stk(stk_b, stk_a);
-//	after = get_sorted_count(*stk_a, find_best_stk(*stk_a, size), size);
-//	push_stk(stk_a, stk_b);
-//	if (after > before)
-//		return (1);
-//	return (0);
 	int		last;
 	int		cur;
 	int		first;
@@ -112,7 +102,6 @@ void	move_unsorted(t_stk **stk_a, t_stk **stk_b, char **res, int size)
 		}
 		else if (check_push(stk_a, stk_b, size))
 		{
-			//printf("!!!!!\n");
 			pa(stk_a, stk_b, res);
 			(*stk_a)->sorted = 1;
 		}
@@ -120,6 +109,5 @@ void	move_unsorted(t_stk **stk_a, t_stk **stk_b, char **res, int size)
 			pb(stk_a, stk_b, res);
 		else
 			ra(stk_a, stk_b, res);
-		//get_stk(*stk_a);
 	}
 }

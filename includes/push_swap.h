@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 17:29:53 by tcase             #+#    #+#             */
-/*   Updated: 2019/05/27 11:45:05 by tcase            ###   ########.fr       */
+/*   Updated: 2019/05/27 15:25:06 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,12 @@ typedef struct			s_moves
 	struct s_moves		*next;
 }						t_moves;
 
-void					make_steps(t_stk **stk_a, t_stk **stk_b,\
-							t_moves *moves, char **res);
+/*
+**	move_back.c
+*/
+void					move_back(t_stk **stk_a, t_stk **stk_b, char **res);
+
+
 /*
 **  move_unsorted.c
 */
@@ -60,10 +64,10 @@ int						comp_steps(int steps_a, int steps_b,\
 /*
 ** mark_stk.c
 */
-void					mark_stk(t_stk *stk, int size);
 void					index_stk(t_stk *stk, int size);
 int						get_sorted_count(t_stk *stk, t_stk *tstk, int size);
 t_stk					*find_best_stk(t_stk *stk, int size);
+void					mark_stk(t_stk *stk, int size);
 /*
 **  stk_functions.c
 */
@@ -93,6 +97,7 @@ void					clean_stk(t_stk *stk_a, t_stk *stk_b,\
 							int res, char *message);
 void					clean_moves(t_moves *moves, t_st *st);
 void					clean_split(char **num);
+void					get_last_move(t_moves **moves, t_moves **new);
 /*
 **  push_sx.c, push_rot.c, push_rrot.c, push_push.c
 */

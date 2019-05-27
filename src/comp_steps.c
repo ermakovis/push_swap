@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 14:11:26 by tcase             #+#    #+#             */
-/*   Updated: 2019/05/27 13:51:43 by tcase            ###   ########.fr       */
+/*   Updated: 2019/05/27 15:27:16 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,16 +51,10 @@ static int		comp_bwd(int steps_a, int steps_b, t_st *st, t_moves **bwd)
 		steps_b--;
 		moves->rrr++;
 	}
-	while (steps_a > 0)
-	{
-		steps_a--;
+	while (steps_a > 0 && steps_a--)
 		moves->rra++;
-	}
-	while (steps_b > 0) 
-	{ 
-		steps_b--;
+	while (steps_b > 0 && steps_b--)
 		moves->rrb++;
-	}
 	moves->total = (moves->rrr + moves->rra + moves->rrb);
 	*bwd = moves;
 	return (1);
@@ -115,21 +109,6 @@ static void		assign_shortest(t_moves *fwd, t_moves *bwd, t_moves *bth,\
 	}
 	*moves = tmp;
 }
-/*
-**	printf("fwd | ra-%d  | rb-%d  | rr-%d \n", fwd->ra, fwd->rb, fwd->rr);
-**	printf("bwd | rra-%d | rrb-%d | rrr-%d\n", bwd->rra, bwd->rrb, bwd->rrr);
-**	printf("bth | ra-%d  | rb-%d  | rra-%d | rrb-%d\n", bth->ra, bth->rb, bth->rra, bth->rrb);
-**	printf("\n");
-*/
-void			get_last_move(t_moves **moves, t_moves **new)
-{
-	t_moves		*tmp;
-
-	tmp = *moves;
-	while (tmp->next)
-		tmp = tmp->next;
-	tmp->next = *new;
-}
 
 int				comp_steps(int steps_a, int steps_b, t_st *st, t_moves **moves)
 {
@@ -154,17 +133,7 @@ int				comp_steps(int steps_a, int steps_b, t_st *st, t_moves **moves)
 		ft_memdel((void**)&bwd);
 		return (-1);
 	}
-//	printf("fwd | ra-%d  | rb-%d  | rr-%d \n", fwd->ra, fwd->rb, fwd->rr);
-//	printf("bwd | rra-%d | rrb-%d | rrr-%d\n", bwd->rra, bwd->rrb, bwd->rrr);
-//	printf("bth | ra-%d  | rb-%d  | rra-%d | rrb-%d\n", bth->ra, bth->rb, bth->rra, bth->rrb);
 	assign_shortest(fwd, bwd, bth, &tmp);
-	if (*moves == NULL)
-		*moves = tmp;
-	else
-		get_last_move(moves, &tmp);
-//	printf("choosen - ttl-%d |ra-%d|rb-%d|rr-%d|rra-%d|rrb-%d|rrr-%d\n",\
-			tmp->total, tmp->ra, tmp->rb, tmp->rr,\
-			tmp->rra, tmp->rrb, tmp->rrr);
-//	printf("\n");
+	get_last_move(moves, &tmp);
 	return (1);
 }

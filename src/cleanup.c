@@ -6,11 +6,26 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 17:51:24 by tcase             #+#    #+#             */
-/*   Updated: 2019/05/26 20:52:43 by tcase            ###   ########.fr       */
+/*   Updated: 2019/05/27 15:27:25 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
+
+void	get_last_move(t_moves **moves, t_moves **new)
+{
+	t_moves		*tmp;
+
+	tmp = *moves;
+	if (*moves == NULL)
+		*moves = *new;
+	else
+	{
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = *new;
+	}
+}
 
 void	clean_stk(t_stk *stk_a, t_stk *stk_b, int res, char *message)
 {

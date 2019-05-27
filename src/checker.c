@@ -1,20 +1,32 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   checker.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/05/27 15:11:33 by tcase             #+#    #+#             */
+/*   Updated: 2019/05/27 15:28:50 by tcase            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/push_swap.h"
 
-int     main(int argc, char **argv)
+int		main(int argc, char **argv)
 {
-	int     i;
-	char    *line;
-	t_stk   *stk_a;
-	t_stk   *stk_b;
+	int		i;
+	char	*line;
+	t_stk	*stk_a;
+	t_stk	*stk_b;
 
 	i = 0;
 	stk_a = NULL;
 	stk_b = NULL;
 	while (++i < argc)
-	{     
+	{
 		if (!(check_num(argv[i])))
 			clean_stk(stk_a, NULL, -1, "Wrong input");
-		add_num(&stk_a, ft_atoi(argv[i])); 
+		add_num(&stk_a, ft_atoi(argv[i]));
 	}
 	i = get_stk_size(stk_a);
 	index_stk(stk_a, i);
