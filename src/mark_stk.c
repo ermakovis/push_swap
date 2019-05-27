@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 14:44:54 by tcase             #+#    #+#             */
-/*   Updated: 2019/05/27 13:42:02 by tcase            ###   ########.fr       */
+/*   Updated: 2019/05/27 14:38:36 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,18 +47,6 @@ int			get_sorted_count(t_stk *stk, t_stk *tstk, int size)
 	i = 0;
 	tmp = tstk;
 	cur = tmp->index;
-//	while (size--)
-//	{
-//		if (cur == tmp->index)
-//		{
-//			cur++;
-//			i++;
-//		}
-//		if (tmp->next)
-//			tmp = tmp->next;
-//		else
-//			tmp = stk;
-//	}
 	while (size--)
 	{
 		if (cur < tmp->index)
@@ -118,23 +106,9 @@ void		mark_stk(t_stk *stk, int size)
 	t_stk	*best;
 	int		index;
 
-clear_sorted_flags(stk);
-best = find_best_stk(stk, size);
-cur = best;
-//	index = best->index;
-//	while (size--)
-//	{
-//		if (cur->next != NULL)
-//			next = cur->next;
-//		else
-//			next = stk;
-//		if (cur->index == index + 1)
-//		{
-//			cur->sorted = 1;
-//			index++;
-//		}
-//		cur = next;
-//	}
+	clear_sorted_flags(stk);
+	best = find_best_stk(stk, size);
+	cur = best;
 	index = -1;
 	while (size--)
 	{

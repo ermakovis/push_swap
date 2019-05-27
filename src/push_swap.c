@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 10:52:24 by tcase             #+#    #+#             */
-/*   Updated: 2019/05/27 14:06:34 by tcase            ###   ########.fr       */
+/*   Updated: 2019/05/27 14:46:44 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,6 @@ void	find_smallest_total(t_moves *moves, t_moves **srt)
 	min = INT_MAX;
 	while (tmp)
 	{
-		i++;
-		tmp = tmp->next;
-	}
-//	printf("moves size = %d\n", i);
-	tmp = moves;
-	while (tmp)
-	{
 		if (min > tmp->total)
 		{
 			min = tmp->total;
@@ -81,11 +74,7 @@ void	make_steps(t_stk **stk_a, t_stk **stk_b, t_moves *moves, char **res)
 {
 	t_moves		*tmp;
 
-//	printf("-------------------CHOOSING BEST-----------------------\n");
 	find_smallest_total(moves, &tmp);
-//	printf("choosen - ttl-%d |ra-%d|rb-%drr-%d|rra-%d|rrb-%d|rrr-%d\n",\
-			tmp->total, tmp->ra, tmp->rb, tmp->rr,\
-			tmp->rra, tmp->rrb, tmp->rrr);
 	while (tmp->rrr--)
 		rrr(stk_a, stk_b, res);
 	while (tmp->rra--)
@@ -116,7 +105,6 @@ void	move_back(t_stk **stk_a, t_stk **stk_b, char **res)
 	init_stats(stk_a, stk_b, &st);
 	tmp = *stk_b;
 	steps_b = 0;
-//	printf("-------------------CHOOSING MOVE-----------------------\n");
 	while (tmp)
 	{
 		steps_a = get_min_steps(stk_a, &tmp, st);
@@ -126,7 +114,6 @@ void	move_back(t_stk **stk_a, t_stk **stk_b, char **res)
 		tmp = tmp->next;
 	}
 	make_steps(stk_a, stk_b, moves, res);
-//	printf("---------------------FINISH--------------------------\n");
 	clean_moves(moves, st);
 	move_back(stk_a, stk_b, res);
 }
@@ -144,6 +131,7 @@ void	align_start(t_stk **stk_a, t_stk **stk_b, char **res, int size)
 	while (i > 0 && i--)
 		rra(stk_a, stk_b, res);
 }
+
 void	fill_str(t_stk **stk_a, char *str)
 {
 	char	**num;
@@ -192,18 +180,12 @@ int		main(int argc, char **argv)
 	i = get_stk_size(stk_a);
 	index_stk(stk_a, i);
 	mark_stk(stk_a, i);
-//	get_stk(stk_a);
 	if (!(res = ft_strnew(1)))
 		clean_stk(stk_a, NULL, -1, "Failed Malloc - res");
 	move_unsorted(&stk_a, &stk_b, &res, i);
 	move_back(&stk_a, &stk_b, &res);
 	align_start(&stk_a, &stk_b, &res, i);
-	printf("%s", res);
-//	printf(" -----------stk_a-------------\n");
-//	get_stk(stk_a);
-//	printf(" -----------stk_b-------------\n");
-//	get_stk(stk_b);
-//	printf(" -----------------------------\n");
+	ft_putstr(res);
 	ft_memdel((void**)&res);
 	clean_stk(stk_a, stk_b, 0, "All fine");
 }
