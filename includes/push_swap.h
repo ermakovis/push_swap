@@ -6,16 +6,16 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 17:29:53 by tcase             #+#    #+#             */
-/*   Updated: 2019/05/27 15:25:06 by tcase            ###   ########.fr       */
+/*   Updated: 2019/06/01 19:46:00 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
-# include "../libft/libft.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <limits.h>
+# include "../libft/includes/libft.h"
 
 typedef struct			s_stk
 {
@@ -49,8 +49,6 @@ typedef struct			s_moves
 **	move_back.c
 */
 void					move_back(t_stk **stk_a, t_stk **stk_b, char **res);
-
-
 /*
 **  move_unsorted.c
 */
@@ -72,8 +70,6 @@ void					mark_stk(t_stk *stk, int size);
 **  stk_functions.c
 */
 void					add_num(t_stk **stk_start, int num);
-int						get_min_index(t_stk **stk);
-int						get_max_index(t_stk **stk);
 int						get_stk_size(t_stk *stk);
 void					get_stk(t_stk *stk);
 /*
@@ -82,7 +78,7 @@ void					get_stk(t_stk *stk);
 int						check_command(char *line, t_stk **stk_a, t_stk **stk_b);
 int						check_num(char *str);
 int						check_sort(t_stk *stk);
-int						get_smallest(int num1, int num2, int num3);
+int						check_dup(t_stk **stk_a);
 /*
 **  move_stk.c
 */
@@ -91,6 +87,14 @@ int						swap_stk(t_stk **stk);
 int						rot_stk(t_stk **stk);
 int						revrot_stk(t_stk **stk);
 /*
+**	list_index_functions.c
+*/
+int						get_index_first_sorted(t_stk **stk);
+int						get_index_last_sorted(t_stk **stk);
+int						get_min_index(t_stk **stk);
+int						get_max_index(t_stk **stk);
+int						get_smallest(int num1, int num2, int num3);
+/*
 **  cleanup.c
 */
 void					clean_stk(t_stk *stk_a, t_stk *stk_b,\
@@ -98,6 +102,10 @@ void					clean_stk(t_stk *stk_a, t_stk *stk_b,\
 void					clean_moves(t_moves *moves, t_st *st);
 void					clean_split(char **num);
 void					get_last_move(t_moves **moves, t_moves **new);
+/*
+** fill_stk.c
+*/
+int						fill_stk(t_stk **stk_a, int argc, char **argv);
 /*
 **  push_sx.c, push_rot.c, push_rrot.c, push_push.c
 */

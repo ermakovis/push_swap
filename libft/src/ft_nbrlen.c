@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 13:19:22 by tcase             #+#    #+#             */
-/*   Updated: 2019/05/05 15:00:37 by tcase            ###   ########.fr       */
+/*   Updated: 2019/06/01 10:22:23 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int			ft_nbrlen(intmax_t num, int base)
 {
-	int i;
+	intmax_t i;
 
 	i = 1;
 	if (num < 0)
@@ -23,7 +23,7 @@ int			ft_nbrlen(intmax_t num, int base)
 		i++;
 		num = -num;
 	}
-	while (num > base - 1)
+	while (num > (intmax_t)base - 1)
 	{
 		num /= base;
 		i++;
@@ -33,10 +33,10 @@ int			ft_nbrlen(intmax_t num, int base)
 
 int			ft_unbrlen(uintmax_t num, int base)
 {
-	int i;
+	uintmax_t i;
 
 	i = 1;
-	while (num > base - 1)
+	while (num > (uintmax_t)base - 1)
 	{
 		num /= base;
 		i++;

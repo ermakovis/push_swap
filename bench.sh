@@ -6,9 +6,9 @@ LIMIT=700
 FILE=problem_1000
 SUM=0
 
-for i in {1..100}
+for i in {1..10}
 do
-		export ARG=`ruby -e "puts (1..100).to_a.shuffle.join(' ')"`
+		export ARG=`ruby -e "puts (1..500).to_a.shuffle.join(' ')"`
 		if ./push_swap $ARG | ./checker $ARG | grep -q KO
 		then
 			echo "Error!"

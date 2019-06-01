@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 14:54:58 by tcase             #+#    #+#             */
-/*   Updated: 2019/05/27 15:02:32 by tcase            ###   ########.fr       */
+/*   Updated: 2019/06/01 11:58:41 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@ static int		get_min_steps(t_stk **stk_a, t_stk **stk_b, t_st *st)
 	i = 0;
 	while (i < st->size_a)
 	{
-		cur->next != NULL ? (next = cur->next) : (next = *stk_a);
+		if (cur->next != NULL)
+			next = cur->next;
+		else
+			next = *stk_a;
 		if (cur->index == st->min && (*stk_b)->index < st->min)
 			return (i);
 		if (next->index == st->max && (*stk_b)->index > st->max)
@@ -36,7 +39,7 @@ static int		get_min_steps(t_stk **stk_a, t_stk **stk_b, t_st *st)
 	return (i);
 }
 
-static void	init_stats(t_stk **stk_a, t_stk **stk_b, t_st **st)
+static void		init_stats(t_stk **stk_a, t_stk **stk_b, t_st **st)
 {
 	t_st	*tmp;
 
@@ -50,7 +53,7 @@ static void	init_stats(t_stk **stk_a, t_stk **stk_b, t_st **st)
 	*st = tmp;
 }
 
-static void	find_smallest_total(t_moves *moves, t_moves **srt)
+static void		find_smallest_total(t_moves *moves, t_moves **srt)
 {
 	t_moves *tmp;
 	int		min;
@@ -70,7 +73,8 @@ static void	find_smallest_total(t_moves *moves, t_moves **srt)
 	}
 }
 
-static void	make_steps(t_stk **stk_a, t_stk **stk_b, t_moves *moves, char **res)
+static void		make_steps(t_stk **stk_a, t_stk **stk_b,\
+					t_moves *moves, char **res)
 {
 	t_moves		*tmp;
 
@@ -91,7 +95,7 @@ static void	make_steps(t_stk **stk_a, t_stk **stk_b, t_moves *moves, char **res)
 	(*stk_a)->sorted = 1;
 }
 
-void	move_back(t_stk **stk_a, t_stk **stk_b, char **res)
+void			move_back(t_stk **stk_a, t_stk **stk_b, char **res)
 {
 	t_st	*st;
 	t_stk	*tmp;
@@ -108,8 +112,8 @@ void	move_back(t_stk **stk_a, t_stk **stk_b, char **res)
 	while (tmp)
 	{
 		steps_a = get_min_steps(stk_a, &tmp, st);
-		if(comp_steps(steps_a, steps_b, st, &moves) == -1)
-			clean_stk(*stk_a, *stk_b, -1, "Steps calcs failed");;
+		if (comp_steps(steps_a, steps_b, st, &moves) == -1)
+			clean_stk(*stk_a, *stk_b, -1, "Steps calcs failed");
 		steps_b++;
 		tmp = tmp->next;
 	}

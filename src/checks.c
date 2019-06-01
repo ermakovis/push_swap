@@ -6,27 +6,11 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 20:53:55 by tcase             #+#    #+#             */
-/*   Updated: 2019/05/27 13:20:17 by tcase            ###   ########.fr       */
+/*   Updated: 2019/06/01 13:29:33 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
-
-int		get_smallest(int num1, int num2, int num3)
-{
-	if (num1 < num2)
-	{
-		if (num1 < num3)
-			return (num1);
-		else
-			return (num3);
-	}
-	else if (num2 < num3)
-		return (num2);
-	else
-		return (num3);
-	return (num1);
-}
 
 int			check_sort(t_stk *stk)
 {
@@ -52,6 +36,26 @@ int			check_num(char *str)
 		if (!(ft_isdigit(str[i])) && str[i] != '-')
 			return (0);
 		i++;
+	}
+	return (1);
+}
+
+int			check_dup(t_stk **stk_a)
+{
+	t_stk *tmp;
+	t_stk *tmp2;
+
+	tmp = *stk_a;
+	while (tmp)
+	{
+		tmp2 = tmp->next;
+		while (tmp2)
+		{
+			if (tmp->num == tmp2->num)
+				return (-1);
+			tmp2 = tmp2->next;
+		}
+		tmp = tmp->next;
 	}
 	return (1);
 }

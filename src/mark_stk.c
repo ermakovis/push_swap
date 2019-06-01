@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 14:44:54 by tcase             #+#    #+#             */
-/*   Updated: 2019/05/27 14:38:36 by tcase            ###   ########.fr       */
+/*   Updated: 2019/06/01 13:37:39 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ void		mark_stk(t_stk *stk, int size)
 			next = cur->next;
 		else
 			next = stk;
-		if (cur->index < next->index && index == -1)
+		if ((cur->index < next->index || size == 0) && index == -1)
 		{
 			index = cur->index;
 			cur->sorted = 1;

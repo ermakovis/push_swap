@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/14 11:37:29 by tcase             #+#    #+#             */
-/*   Updated: 2019/05/26 12:20:45 by tcase            ###   ########.fr       */
+/*   Updated: 2019/06/01 16:44:18 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ typedef struct		s_list
 	struct s_list	*next;
 }					t_list;
 
+int					ft_printf(const char *format, ...);
+int					ft_dprintf(int fd, const char *format, ...);
 int					ft_abs(int num);
 void				*ft_memset(void *b, int c, size_t len);
 void				*ft_bzero(void *s, size_t n);
@@ -33,6 +35,7 @@ void				*ft_memchr(const void *s, int c, size_t n);
 int					ft_memcmp(const void *s1, const void *s2, size_t n);
 size_t				ft_strlen(const char *str);
 char				*ft_strdup(const char *s1);
+char				*ft_strndup(const char *s1, size_t n);
 char				*ft_strcpy(char *dest, const char *src);
 char				*ft_strncpy(char *dest, const char *src, size_t n);
 char				*ft_strcat(char *dest, const char *src);
@@ -84,10 +87,10 @@ void				ft_lstiter(t_list *lst, void (*f)(t_list *new));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 int					ft_lstsize(t_list *list);
 int					ft_strclen(char *str, char *str2);
-int					ft_unbrlen(uintmax_t num, int base);
-int					ft_nbrlen(intmax_t num, int base);
 void				ft_strtoupper(char *str);
 void				ft_swap(char *a, char *b);
 int					ft_power(int n, int power);
+int					ft_unbrlen(uintmax_t num, int base);
+int					ft_nbrlen(intmax_t num, int base);
 
 #endif
