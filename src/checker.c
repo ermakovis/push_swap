@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 15:11:33 by tcase             #+#    #+#             */
-/*   Updated: 2019/06/01 19:41:04 by tcase            ###   ########.fr       */
+/*   Updated: 2019/06/01 21:08:16 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,26 +73,26 @@ static void	show_debug(t_stk *stk_a, t_stk *stk_b, int size, int opt)
 	ft_printf("+------------+------------+\n");
 }
 
-void		proc_commands(t_stk *stk_a, t_stk *stk_b, int opt)
+void		proc_commands(t_stk **stk_a, t_stk **stk_b, int opt)
 {
 	char	*line;
 	int		size;
 
-	size = get_stk_size(stk_a);
-	index_stk(stk_a, size);
+	size = get_stk_size(*stk_a);
+	index_stk(*stk_a, size);
 	while ((get_next_line(0, &line)))
 	{
-		mark_stk(stk_a, size);
-		if (!(check_command(line, &stk_a, &stk_b)))
-			clean_stk(stk_a, stk_b, -1, "Error");
+		if (!(check_command(line, stk_a, stk_b)))
+			clean_stk(*stk_a, *stk_b, -1, "Error");
+		mark_stk(*stk_a, size);
 		if (opt >= 1 && ft_printf("%s\n", line))
-			show_debug(stk_a, stk_b, size, opt);
+			show_debug(*stk_a, *stk_b, size, opt);
 		if (opt == 2 && timeout(500))
 			ft_printf("\033[%dF", size + 3);
 		ft_memdel((void**)&line);
 	}
 	if (opt == 2 && ft_printf("Finish\n"))
-		show_debug(stk_a, stk_b, size, opt);
+		show_debug(*stk_a, *stk_b, size, opt);
 }
 
 int			main(int argc, char **argv)
@@ -106,7 +106,7 @@ int			main(int argc, char **argv)
 	stk_b = NULL;
 	proc_options(&argc, &argv, &opt);
 	fill_stk(&stk_a, argc, argv);
-	proc_commands(stk_a, stk_b, opt);
+	proc_commands(&stk_a, &stk_b, opt);
 	(!stk_b && check_sort(stk_a)) ? ft_putendl("OK") : ft_putendl("KO");
 	clean_stk(stk_a, stk_b, 0, "All fine");
 	return (0);

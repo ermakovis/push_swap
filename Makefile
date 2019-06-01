@@ -6,7 +6,7 @@
 #    By: tcase <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/06 11:31:10 by tcase             #+#    #+#              #
-#    Updated: 2019/06/01 20:02:17 by tcase            ###   ########.fr        #
+#    Updated: 2019/06/01 21:10:48 by tcase            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@echo "\033[34m\033[1mCompilation of \033[0m\033[36m$(notdir $<)\033[1m\033[34m done.\033[0m"
 
 clean:
-		@rm -f $(OBJ)  
+		@rm -f $(OBJ) $(PSH) $(CHK) 
 
 fclean: clean
 		@make fclean -C $(LIB_DIR)
