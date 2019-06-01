@@ -36,12 +36,10 @@ all: $(NAME)
 $(NAME):$(OBJ)
 	@ar rc $(NAME) $(OBJ)
 	@ranlib $(NAME)
-	@echo "\033[32mBinary \033[1;32m$(NAME)\033[1;0m\033[32m created.\033[0m"
 
 $(OBJ_PATH)%.o:$(SRCS_PATH)%.c
 	@mkdir -p obj
 	@gcc -c $(FLAGS) $(INC) $< -o $@
-	@echo "\033[34m\033[1mCompilation of \033[0m\033[36m$(notdir $<)\033[1m\033[34m done.\033[0m"
 
 clean:
 	@/bin/rm -rf $(OBJ_PATH)
